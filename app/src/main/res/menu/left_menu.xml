@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/mnuEquipos"
+            android:checked="true"
+            android:title="Equipo"/>
+        <item android:id="@+id/mnuPosiciones"
+            android:title="Tabla de Posiciones"/>
+    </group>
+</menu>
