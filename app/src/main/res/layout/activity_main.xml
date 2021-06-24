@@ -9,10 +9,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbaMain"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Elije la competición"
+                android:textAppearance="@android:style/TextAppearance.WindowTitle"
+                android:visibility="visible" />
+        </androidx.appcompat.widget.Toolbar>
         <FrameLayout
-            android:id="@+id/flaContent"
+            android:id="@+id/contentFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

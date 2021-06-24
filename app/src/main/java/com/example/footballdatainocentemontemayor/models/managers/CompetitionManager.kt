@@ -1,17 +1,15 @@
 package com.example.footballdatainocentemontemayor.models.managers
 
-import android.content.Context
 import com.example.footballdatainocentemontemayor.models.beans.Competition
 import com.example.footballdatainocentemontemayor.models.beans.CompetitionResponse
 import com.example.footballdatainocentemontemayor.models.dao.CompetitionsService
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.create
 
 interface OnGetCompetitionsDone {
-    fun onSuccess(competitions : ArrayList<Competition>)
+    fun onSuccess(newCompetitions : ArrayList<Competition>)
     fun onError(msg : String)
 }
 

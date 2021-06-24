@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="15dp">
+    <TextView
+        android:id="@+id/competitionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Competicion"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:id="@+id/tviProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nro de equipos:"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:layout_alignLeft="@+id/competitionName"
+        android:layout_below="@+id/competitionName"/>
+</RelativeLayout>
