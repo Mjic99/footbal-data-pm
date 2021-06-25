@@ -6,17 +6,18 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="15dp">
     <TextView
-        android:id="@+id/competitionName"
+        android:id="@+id/standingName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Competicion"
+        android:text="1. Equipo"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
     <TextView
-        android:id="@+id/competitionSeasons"
+        android:id="@+id/standingScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nro de temporadas:"
+        android:text="Puntos:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:layout_alignLeft="@+id/competitionName"
-        android:layout_below="@+id/competitionName"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

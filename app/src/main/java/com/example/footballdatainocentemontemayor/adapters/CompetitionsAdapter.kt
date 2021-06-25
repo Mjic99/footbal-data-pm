@@ -15,8 +15,7 @@ interface OnCompetitionItemClickListener {
 
 class CompetitionsAdapter(
     competitions: ArrayList<Competition>,
-    listener: OnCompetitionItemClickListener,
-    context: Context
+    listener: OnCompetitionItemClickListener
 ) : RecyclerView.Adapter<CompetitionsAdapter.ViewHolder>()
 {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -31,7 +30,6 @@ class CompetitionsAdapter(
 
     private var competitions : ArrayList<Competition>? = competitions
     private var listener : OnCompetitionItemClickListener? = listener
-    private var context : Context? = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
