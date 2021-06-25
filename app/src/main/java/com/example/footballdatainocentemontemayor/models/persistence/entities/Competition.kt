@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class Competition (
     @PrimaryKey() val id : Int,
-    @ColumnInfo(name = "name") val name : String
+    @ColumnInfo(name = "name") val name : String,
+    @ColumnInfo(name = "seasons") val numberOfAvailableSeasons: Int
 )

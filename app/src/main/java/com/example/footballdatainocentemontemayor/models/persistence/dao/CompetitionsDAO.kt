@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.footballdatainocentemontemayor.models.persistence.entities.Competition
+import com.example.footballdatainocentemontemayor.models.persistence.entities.Standing
 
 @Dao
 abstract class CompetitionsDAO {
@@ -19,7 +20,8 @@ abstract class CompetitionsDAO {
         products.forEach { p : com.example.footballdatainocentemontemayor.models.beans.Competition ->
             insert(Competition(
                 p.id,
-                p.name
+                p.name,
+                p.numberOfAvailableSeasons
             ))
         }
     }

@@ -21,9 +21,11 @@ class CompetitionsAdapter(
 {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var competitionNameView : TextView? = null
+        var competitionSeasonsView : TextView? = null
 
         init {
             competitionNameView = view.findViewById(R.id.competitionName)
+            competitionSeasonsView = view.findViewById(R.id.competitionSeasons)
         }
     }
 
@@ -41,6 +43,7 @@ class CompetitionsAdapter(
         val competition = competitions!![position]
 
         holder.competitionNameView!!.text = competition.name
+        holder.competitionSeasonsView!!.text = "Nro de temporadas: ${competition.numberOfAvailableSeasons}"
 
         holder.itemView.setOnClickListener { v : View ->
             listener!!.onClick(competitions!![position])

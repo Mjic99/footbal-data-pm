@@ -43,13 +43,14 @@ class CompetitionManager : OnGetTeamsDone {
                     response: Response<CompetitionResponse>
                 ) {
                     if (response.body() != null) {
-                        saveCompetitionsRoom(response.body()!!.competitions, context) { competitions ->
+                        val listaCompeticiones = response.body()!!.competitions.take(3)
+                        saveCompetitionsRoom(listaCompeticiones as ArrayList<Competition>, context) { competitions ->
                             context.getSharedPreferences(
                                 "FOOTBALL_DATA", Context.MODE_PRIVATE
                             ).edit().putBoolean("HAS_LOCAL_COMPETITIONS", true).apply()
-                            val listaCompeticiones = competitions.take(3)
-                            listaCompeticiones.forEach{ c : Competition ->
+                            competitions.forEach{ c : Competition ->
                                 TeamManager.getInstance().getTeams(this@CompetitionManager, context, c.id)
+                                StandingsManager.getInstance().persistCompetitionStandings(c.id, context)
                             }
                             callback.onSuccess(competitions)
                         }
@@ -88,7 +89,8 @@ class CompetitionManager : OnGetTeamsDone {
             competitionsDAO.findAll().forEach { c : com.example.footballdatainocentemontemayor.models.persistence.entities.Competition ->
                 competitionList.add(Competition(
                     c.id,
-                    c.name
+                    c.name,
+                    c.numberOfAvailableSeasons
                 ))
             }
             callback(competitionList)
