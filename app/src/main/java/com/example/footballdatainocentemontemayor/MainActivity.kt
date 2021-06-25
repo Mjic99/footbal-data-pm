@@ -17,8 +17,6 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity(), OnGetCompetitionsDone, OnSync {
     var fragments : ArrayList<Fragment> = ArrayList()
 
-    var competitions : ArrayList<Competition> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,16 +24,19 @@ class MainActivity : AppCompatActivity(), OnGetCompetitionsDone, OnSync {
         fragments.add(SyncFragment())
         fragments.add(CompetitionsFragment())
 
-        // Agregamos fragment por defecto
         val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.contentFrame, fragments[0])
+
+        if (CompetitionManager.getInstance().hasLocalCompetitions(this)) {
+            ft.replace(R.id.contentFrame, fragments[1])
+        } else {
+            ft.replace(R.id.contentFrame, fragments[0])
+        }
+
         ft.addToBackStack(null)
         ft.commit()
     }
 
     override fun onSuccess(newCompetitions: ArrayList<Competition>) {
-        competitions = newCompetitions
-
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.contentFrame, fragments[1])
         ft.addToBackStack(null)
@@ -47,6 +48,6 @@ class MainActivity : AppCompatActivity(), OnGetCompetitionsDone, OnSync {
     }
 
     override fun syncData() {
-        CompetitionManager.getInstance().getCompetitions(this)
+        CompetitionManager.getInstance().getCompetitions(this, this)
     }
 }

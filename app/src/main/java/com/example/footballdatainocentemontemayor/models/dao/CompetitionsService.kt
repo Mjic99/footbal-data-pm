@@ -8,6 +8,6 @@ import retrofit2.http.Headers
 
 interface CompetitionsService {
     @Headers("X-Auth-Token: eca211cf004c44d5870c86ed6586f25e")
-    @GET("competitions")
+    @GET("competitions?plan=TIER_ONE")
     fun getCompetitions() : Call<CompetitionResponse>
 }

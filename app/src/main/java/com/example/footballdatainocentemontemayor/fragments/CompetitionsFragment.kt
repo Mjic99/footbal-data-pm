@@ -13,8 +13,10 @@ import com.example.footballdatainocentemontemayor.R
 import com.example.footballdatainocentemontemayor.adapters.CompetitionsAdapter
 import com.example.footballdatainocentemontemayor.adapters.OnCompetitionItemClickListener
 import com.example.footballdatainocentemontemayor.models.beans.Competition
+import com.example.footballdatainocentemontemayor.models.managers.CompetitionManager
+import com.example.footballdatainocentemontemayor.models.managers.OnGetCompetitionsDone
 
-class CompetitionsFragment: Fragment(), OnCompetitionItemClickListener {
+class CompetitionsFragment: Fragment(), OnCompetitionItemClickListener, OnGetCompetitionsDone {
 
     var competitionsView : RecyclerView? = null
 
@@ -33,11 +35,21 @@ class CompetitionsFragment: Fragment(), OnCompetitionItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         competitionsView = view.findViewById(R.id.competitionsView)
 
-        val competitionsAdapter = CompetitionsAdapter((activity as MainActivity).competitions, this, requireActivity())
-        competitionsView!!.adapter = competitionsAdapter
+        CompetitionManager.getInstance().getCompetitions(this, requireContext())
     }
 
-    override fun onClick(product: Competition) {
+    override fun onClick(competition: Competition) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSuccess(newCompetitions: ArrayList<Competition>) {
+        requireActivity().runOnUiThread {
+            val competitionsAdapter = CompetitionsAdapter(newCompetitions, this, requireActivity())
+            competitionsView!!.adapter = competitionsAdapter
+        }
+    }
+
+    override fun onError(msg: String) {
         TODO("Not yet implemented")
     }
 }

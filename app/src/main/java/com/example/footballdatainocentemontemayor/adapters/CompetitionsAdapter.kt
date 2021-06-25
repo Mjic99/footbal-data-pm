@@ -10,7 +10,7 @@ import com.example.footballdatainocentemontemayor.R
 import com.example.footballdatainocentemontemayor.models.beans.Competition
 
 interface OnCompetitionItemClickListener {
-    fun onClick(product : Competition)
+    fun onClick(competition: Competition)
 }
 
 class CompetitionsAdapter(
