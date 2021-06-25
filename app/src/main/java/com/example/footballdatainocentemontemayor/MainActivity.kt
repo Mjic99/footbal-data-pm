@@ -10,12 +10,15 @@ import com.example.footballdatainocentemontemayor.fragments.CompetitionsFragment
 import com.example.footballdatainocentemontemayor.fragments.OnSync
 import com.example.footballdatainocentemontemayor.fragments.SyncFragment
 import com.example.footballdatainocentemontemayor.models.beans.Competition
+import com.example.footballdatainocentemontemayor.models.beans.Team
 import com.example.footballdatainocentemontemayor.models.managers.CompetitionManager
 import com.example.footballdatainocentemontemayor.models.managers.OnGetCompetitionsDone
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), OnGetCompetitionsDone, OnSync {
     var fragments : ArrayList<Fragment> = ArrayList()
+
+    var currTeams : ArrayList<Team> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

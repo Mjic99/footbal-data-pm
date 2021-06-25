@@ -40,7 +40,7 @@ class TeamManager {
                     response: Response<TeamResponse>
                 ) {
                     if (response.body() != null) {
-                        saveTeamsRoom(response.body()!!.teams, context, { products : ArrayList<Team> ->
+                        saveTeamsRoom(response.body()!!.teams, context,competitionId, { products : ArrayList<Team> ->
                             val edit = context.getSharedPreferences(
                                 "TEAMS_DATA", Context.MODE_PRIVATE).edit()
                             edit.putBoolean("IS_FIRST_TIME_TEAMS", false)
@@ -74,7 +74,7 @@ class TeamManager {
             val teamList = java.util.ArrayList<Team>()
             teamDAO.findAll().forEach{p: com.example.footballdatainocentemontemayor.models.persistence.entities.Team ->
                 teamList.add(
-                    Team(p.id,p.name,p.venue)
+                    Team(p.name,p.venue)
                 )}
             callback(teamList)
         }.start()
@@ -88,6 +88,7 @@ class TeamManager {
 
     private fun saveTeamsRoom(teams: ArrayList<Team>,
                               context : Context,
+                              competitionId: Int,
                               callback : (products : ArrayList<Team>) -> Unit) {
         val db = Room.databaseBuilder(
             context.applicationContext,
@@ -97,13 +98,7 @@ class TeamManager {
 
         Thread {
             val productDAO = db.teamsDAO()
-            teams.forEach { p : Team ->
-                productDAO.insert(com.example.footballdatainocentemontemayor.models.persistence.entities.Team(
-                    p.id,
-                    p.name,
-                    p.venue,
-                ))
-            }
+            productDAO.insertTeams(teams, competitionId)
             callback(teams)
         }.start()
     }

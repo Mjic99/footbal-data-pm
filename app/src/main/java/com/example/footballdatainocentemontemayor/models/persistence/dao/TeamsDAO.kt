@@ -15,12 +15,12 @@ abstract class TeamsDAO {
     abstract fun insert(team: Team)
 
     @Transaction
-    open fun insertTeams(products: ArrayList<com.example.footballdatainocentemontemayor.models.beans.Team>) {
+    open fun insertTeams(products: ArrayList<com.example.footballdatainocentemontemayor.models.beans.Team>, competitionID : Int) {
         products.forEach { p : com.example.footballdatainocentemontemayor.models.beans.Team ->
-            insert(Team(
-                p.id,
+            insert(Team(0,
                 p.name,
-                p.venue,
+                competitionID,
+                p.venue
             ))
         }
     }
