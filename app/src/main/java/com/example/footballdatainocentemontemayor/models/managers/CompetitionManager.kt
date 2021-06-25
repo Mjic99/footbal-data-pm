@@ -1,11 +1,11 @@
 package com.example.footballdatainocentemontemayor.models.managers
 
 import android.content.Context
-import android.os.Debug
 import android.util.Log
 import androidx.room.Room
 import com.example.footballdatainocentemontemayor.models.beans.Competition
 import com.example.footballdatainocentemontemayor.models.beans.CompetitionResponse
+import com.example.footballdatainocentemontemayor.models.beans.Team
 import com.example.footballdatainocentemontemayor.models.dao.CompetitionsService
 import com.example.footballdatainocentemontemayor.models.persistence.AppDatabase
 import retrofit2.Call
@@ -18,7 +18,7 @@ interface OnGetCompetitionsDone {
     fun onError(msg : String)
 }
 
-class CompetitionManager {
+class CompetitionManager : OnGetTeamsDone {
 
     companion object {
         private var instance : CompetitionManager? = null
@@ -47,6 +47,10 @@ class CompetitionManager {
                             context.getSharedPreferences(
                                 "FOOTBALL_DATA", Context.MODE_PRIVATE
                             ).edit().putBoolean("HAS_LOCAL_COMPETITIONS", true).apply()
+                            val listaCompeticiones = competitions.take(3)
+                            listaCompeticiones.forEach{ c : Competition ->
+                                TeamManager.getInstance().getTeams(this@CompetitionManager, context, c.id)
+                            }
                             callback.onSuccess(competitions)
                         }
                     } else {
@@ -105,5 +109,13 @@ class CompetitionManager {
             competitionsDAO.insertCompetitions(competitions)
             callback(competitions)
         }.start()
+    }
+
+    override fun onTeamSuccess(newTeams: ArrayList<Team>) {
+        Log.i("CompetitionManager", "Llamada de equipos")
+    }
+
+    override fun onTeamError(msg: String) {
+        Log.i("CompetitionManager", "Error al llamar equipos")
     }
 }
