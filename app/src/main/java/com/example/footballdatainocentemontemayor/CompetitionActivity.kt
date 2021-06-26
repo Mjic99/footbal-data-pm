@@ -46,7 +46,7 @@ class CompetitionActivity : AppCompatActivity() {
     private fun openFragmentWithCompetition(fragment: Fragment) {
         val bun = Bundle()
         bun.putInt("competitionId", intent.getIntExtra("competitionId", 0))
-        fragments[0].arguments = bun
+        fragment.arguments = bun
 
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.competitionContent, fragment)

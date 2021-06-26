@@ -17,6 +17,7 @@ class ConnectionManager {
 
     private var retrofit : Retrofit? = null
 
+    // Comunicación con la API
     init {
         retrofit = Retrofit.Builder()
             .baseUrl("https://api.football-data.org/v2/")

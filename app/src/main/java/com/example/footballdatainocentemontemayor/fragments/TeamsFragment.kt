@@ -33,7 +33,9 @@ class TeamsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         teamsView = view.findViewById(R.id.teamsView)
 
+        // Se obtiene el ID de competición guardado en el Bundle
         val competitionId = requireArguments().getInt("competitionId")
+        // Se cargan los equipos desde SQLite
         TeamManager.getInstance().getTeamsByCompetitionId(competitionId, requireContext()) { teams ->
             requireActivity().runOnUiThread {
                 val teamsAdapter = TeamsAdapter(teams)

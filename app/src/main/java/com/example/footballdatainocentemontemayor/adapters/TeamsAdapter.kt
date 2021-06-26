@@ -34,6 +34,7 @@ class TeamsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val team = teams!![position]
+        // Se inserta el nombre y estadio de cada equipo en un View
         holder.teamNameView!!.text = team.name
         holder.venueNameView!!.text = team.venue
     }
