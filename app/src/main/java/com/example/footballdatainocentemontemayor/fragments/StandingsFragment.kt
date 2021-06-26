@@ -1,6 +1,7 @@
 package com.example.footballdatainocentemontemayor.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class StandingsFragment: Fragment() {
         standingsView = view.findViewById(R.id.standingsView)
 
         val competitionId = requireArguments().getInt("competitionId")
+        Log.i("aea", competitionId.toString())
         StandingsManager.getInstance().getCompetitionStandingsRoom(competitionId, requireContext()) { standings ->
             requireActivity().runOnUiThread {
                 val standingsAdapter = StandingsAdapter(standings)

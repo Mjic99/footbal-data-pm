@@ -18,8 +18,6 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity(), OnGetCompetitionsDone, OnSync {
     var fragments : ArrayList<Fragment> = ArrayList()
 
-    var currTeams : ArrayList<Team> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

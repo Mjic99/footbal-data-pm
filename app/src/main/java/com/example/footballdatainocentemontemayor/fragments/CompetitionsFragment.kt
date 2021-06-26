@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
+import com.example.footballdatainocentemontemayor.CompetitionActivity
 import com.example.footballdatainocentemontemayor.MainActivity
 import com.example.footballdatainocentemontemayor.R
 import com.example.footballdatainocentemontemayor.adapters.CompetitionsAdapter
@@ -40,14 +41,9 @@ class CompetitionsFragment: Fragment(), OnCompetitionItemClickListener, OnGetCom
     }
 
     override fun onClick(competition: Competition) {
-        val bun = Bundle()
-        bun.putInt("competitionId", competition.id)
-        val teamFragment : TeamsFragment = TeamsFragment()
-        teamFragment.arguments = bun
-        val transaction :FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.contentFrame, teamFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        val intent = Intent(activity, CompetitionActivity::class.java)
+        intent.putExtra("competitionId", competition.id)
+        startActivity(intent)
     }
 
     override fun onSuccess(newCompetitions: ArrayList<Competition>) {
