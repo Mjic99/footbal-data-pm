@@ -29,11 +29,12 @@ class StandingsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         standingsView = view.findViewById(R.id.standingsView)
-
+        // Se obtiene el competitionId proporcionado por la actividad
         val competitionId = requireArguments().getInt("competitionId")
-        Log.i("aea", competitionId.toString())
+        // Se obtienen los resultados de la competicion desde SQLite
         StandingsManager.getInstance().getCompetitionStandingsRoom(competitionId, requireContext()) { standings ->
             requireActivity().runOnUiThread {
+                // Una vez con la data se proporciona el adapter al recycler view
                 val standingsAdapter = StandingsAdapter(standings)
                 standingsView!!.adapter = standingsAdapter
             }

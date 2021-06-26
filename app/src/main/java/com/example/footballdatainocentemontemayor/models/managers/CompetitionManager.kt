@@ -34,20 +34,27 @@ class CompetitionManager : OnGetTeamsDone {
     fun getCompetitions(callback : OnGetCompetitionsDone, context: Context)  {
 
         if (!hasLocalCompetitions(context)) {
+            // Si no existe data guardada localmente
             val retrofit = ConnectionManager.getInstance().getRetrofit()
 
             val competitionsService = retrofit.create<CompetitionsService>()
+            // Se llama al listado de competiciones de la api
             competitionsService.getCompetitions().enqueue(object : Callback<CompetitionResponse> {
                 override fun onResponse(
                     call: Call<CompetitionResponse>,
                     response: Response<CompetitionResponse>
                 ) {
                     if (response.body() != null) {
+                        // Se toman 3 competiciones del arreglo para no exceder el límite de llamadas al api
                         val listaCompeticiones = response.body()!!.competitions.take(3)
+                        // Se guardan las competiciones en SQLite
                         saveCompetitionsRoom(listaCompeticiones as ArrayList<Competition>, context) { competitions ->
+                            // Se guarda en shared preferences un booleano que nos indica que hay data local
                             context.getSharedPreferences(
                                 "FOOTBALL_DATA", Context.MODE_PRIVATE
                             ).edit().putBoolean("HAS_LOCAL_COMPETITIONS", true).apply()
+                            // Por cada competición se llamará a su respectivo endpoint de listado de equipos y resultados
+                            // para que toda esa data se guarde en SQLite
                             competitions.forEach{ c : Competition ->
                                 TeamManager.getInstance().getTeams(this@CompetitionManager, context, c.id)
                                 StandingsManager.getInstance().persistCompetitionStandings(c.id, context)
@@ -64,12 +71,14 @@ class CompetitionManager : OnGetTeamsDone {
                 }
             })
         } else {
+            // Si ya hay data local se extraen las competiciones de SQLite
             getCompetitionsRoom(context) { competitions ->
                 callback.onSuccess(competitions)
             }
         }
     }
 
+    // Chequea en shared preferences el valor que indica que ya existe data en SQLite
     fun hasLocalCompetitions(context: Context): Boolean {
         return context.getSharedPreferences("FOOTBALL_DATA",
             Context.MODE_PRIVATE).getBoolean("HAS_LOCAL_COMPETITIONS", false)
@@ -84,7 +93,7 @@ class CompetitionManager : OnGetTeamsDone {
 
         Thread {
             val competitionsDAO = db.competitionsDAO()
-
+            // Extrae el listado de competiciones de room y las devuelve como el objeto bean
             val competitionList = java.util.ArrayList<Competition>()
             competitionsDAO.findAll().forEach { c : com.example.footballdatainocentemontemayor.models.persistence.entities.Competition ->
                 competitionList.add(Competition(
@@ -105,7 +114,7 @@ class CompetitionManager : OnGetTeamsDone {
             AppDatabase::class.java,
             "FOOTBALLDATA_DB"
         ).fallbackToDestructiveMigration().build()
-
+        // Llama a la transaccion para insertar el listado de competiciones en Room
         Thread {
             val competitionsDAO = db.competitionsDAO()
             competitionsDAO.insertCompetitions(competitions)

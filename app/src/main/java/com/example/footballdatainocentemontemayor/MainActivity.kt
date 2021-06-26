@@ -18,32 +18,33 @@ class MainActivity : AppCompatActivity(), OnGetCompetitionsDone, OnSync {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        // Esta actividad contiene el fragment para sincronizar y el de listado de competiciones
         fragments.add(SyncFragment())
         fragments.add(CompetitionsFragment())
 
         val ft = supportFragmentManager.beginTransaction()
 
-
+        // Al entrar se verifica si hay data local
         if (CompetitionManager.getInstance().hasLocalCompetitions(this)) {
+            // Si existe se va de frente al listado de competiciones
             ft.replace(R.id.contentFrame, fragments[1])
         } else {
+            // De lo contrario se muestra el boton para sincronizar
             ft.replace(R.id.contentFrame, fragments[0])
         }
         ft.commit()
     }
 
-
+    // Una vez que llegan las competiciones del api se muestra el fragment que las lista
     override fun onSuccess(newCompetitions: ArrayList<Competition>) {
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.contentFrame, fragments[1])
         ft.commit()
     }
 
-    override fun onError(msg: String) {
-        Log.i("awa", msg)
-    }
+    override fun onError(msg: String) {}
 
+    // Funcion que trae todas las competiciones de la api
     override fun syncData() {
         CompetitionManager.getInstance().getCompetitions(this, this)
     }

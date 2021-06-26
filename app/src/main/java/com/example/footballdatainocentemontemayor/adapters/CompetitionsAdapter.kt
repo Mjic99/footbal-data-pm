@@ -39,7 +39,7 @@ class CompetitionsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val competition = competitions!![position]
-
+        // Por cada item se muestra el nombre y el nro. de temporadas
         holder.competitionNameView!!.text = competition.name
         holder.competitionSeasonsView!!.text = "Nro de temporadas: ${competition.numberOfAvailableSeasons}"
 

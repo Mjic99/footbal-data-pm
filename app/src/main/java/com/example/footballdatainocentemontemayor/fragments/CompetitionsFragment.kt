@@ -36,24 +36,24 @@ class CompetitionsFragment: Fragment(), OnCompetitionItemClickListener, OnGetCom
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         competitionsView = view.findViewById(R.id.competitionsView)
-
+        // Se obtienen las competiciones usando el manager
         CompetitionManager.getInstance().getCompetitions(this, requireContext())
     }
 
     override fun onClick(competition: Competition) {
+        // Se inicia la actividad para visualizar la información de la competición seleccionada
         val intent = Intent(activity, CompetitionActivity::class.java)
         intent.putExtra("competitionId", competition.id)
         startActivity(intent)
     }
 
     override fun onSuccess(newCompetitions: ArrayList<Competition>) {
+        // Una vez que el manager devuelve las competiciones, estas se muestran usando el recycler view
         requireActivity().runOnUiThread {
             val competitionsAdapter = CompetitionsAdapter(newCompetitions, this)
             competitionsView!!.adapter = competitionsAdapter
         }
     }
 
-    override fun onError(msg: String) {
-        TODO("Not yet implemented")
-    }
+    override fun onError(msg: String) {}
 }

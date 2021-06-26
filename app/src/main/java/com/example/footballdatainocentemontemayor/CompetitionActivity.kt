@@ -21,15 +21,17 @@ class CompetitionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_competition)
-
+        // Esta actividad contiene el listado de equipos y de resultados de una competicion
         fragments.add(TeamsFragment())
         fragments.add(StandingsFragment())
 
         val nviMain = findViewById<NavigationView>(R.id.nviMain)
         dlaMain = findViewById(R.id.dlaMain)
 
+        // Se configuran las acciones del drawer
         nviMain.setNavigationItemSelectedListener { item : MenuItem ->
             item.setChecked(true)
+            // Cada opcion abrirá un fragment distinto
             if (item.itemId == R.id.mnuEquipos) {
                 openFragmentWithCompetition(fragments[0])
             }else if (item.itemId == R.id.mnuPosiciones) {
@@ -39,10 +41,11 @@ class CompetitionActivity : AppCompatActivity() {
             dlaMain!!.closeDrawers()
             true
         }
-
+        // Por defecto se muestra el fragment de listado de equipos
         openFragmentWithCompetition(fragments[0])
     }
 
+    // Función que recibe un fragment y lo muestra
     private fun openFragmentWithCompetition(fragment: Fragment) {
         val bun = Bundle()
         bun.putInt("competitionId", intent.getIntExtra("competitionId", 0))

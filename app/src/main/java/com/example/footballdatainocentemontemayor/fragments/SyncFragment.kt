@@ -14,6 +14,7 @@ interface OnSync {
 }
 
 class SyncFragment: Fragment() {
+    // Syncer es la actividad que tendrá este fragment y que implementará OnSync
     lateinit var syncer: OnSync
 
     override fun onCreateView(
@@ -29,6 +30,7 @@ class SyncFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Se llama a la funcion que implementa la actividad al hacer clic en el boton
         view.findViewById<Button>(R.id.syncButton).setOnClickListener { syncer.syncData() }
     }
 

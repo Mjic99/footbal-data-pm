@@ -33,6 +33,7 @@ class StandingsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val standing = standings!![position]
+        // Se muestra la posición, nombre y puntaje de cada equipo
         holder.standingNameView!!.text = "${standing.position}. ${standing.name}"
         holder.standingScoreView!!.text = "Puntos: ${standing.score}"
     }
