@@ -16,9 +16,11 @@ class TeamsAdapter(
 {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var teamNameView : TextView? = null
+        var venueNameView : TextView? = null
 
         init {
             teamNameView = view.findViewById(R.id.teamName)
+            venueNameView = view.findViewById(R.id.venueName)
         }
     }
 
@@ -33,7 +35,7 @@ class TeamsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val team = teams!![position]
         holder.teamNameView!!.text = team.name
-
+        holder.venueNameView!!.text = team.venue
     }
 
     override fun getItemCount(): Int {

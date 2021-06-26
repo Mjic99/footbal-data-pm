@@ -13,7 +13,7 @@
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         android:layout_marginLeft="10dp"/>
     <TextView
-        android:id="@+id/tviProductPrice"
+        android:id="@+id/venueName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Estadio:"
