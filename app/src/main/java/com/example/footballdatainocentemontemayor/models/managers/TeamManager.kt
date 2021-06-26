@@ -1,6 +1,7 @@
 package com.example.footballdatainocentemontemayor.models.managers
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.example.footballdatainocentemontemayor.models.beans.Team
 import com.example.footballdatainocentemontemayor.models.beans.TeamResponse
@@ -79,6 +80,24 @@ class TeamManager {
             callback(teamList)
         }.start()
 
+    }
+
+     fun getTeamsByCompetitionId(competitionId: Int, context: Context,   callback : (ArrayList<Team>) -> Unit){
+        val db = Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "FOOTBALLDATA_DB").fallbackToDestructiveMigration().build()
+
+        Thread {
+            val teamDAO = db.teamsDAO()
+
+            val teamList = java.util.ArrayList<Team>()
+            teamDAO.findByCompetition(competitionId).forEach{p: com.example.footballdatainocentemontemayor.models.persistence.entities.Team ->
+                teamList.add(
+                        Team(p.name,p.venue)
+                )}
+            callback(teamList)
+        }.start()
     }
 
     private fun isFirstTimeGetTeams(context: Context): Boolean {

@@ -12,7 +12,6 @@ import com.example.footballdatainocentemontemayor.models.beans.Team
 
 class TeamsAdapter(
     teams: ArrayList<Team>,
-    context: Context
 ) : RecyclerView.Adapter<TeamsAdapter.ViewHolder>()
 {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -24,7 +23,6 @@ class TeamsAdapter(
     }
 
     private var teams : ArrayList<Team>? = teams
-    private var context : Context? = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(

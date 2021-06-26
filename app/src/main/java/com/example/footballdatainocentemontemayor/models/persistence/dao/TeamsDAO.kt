@@ -11,6 +11,9 @@ abstract class TeamsDAO {
     @Query("SELECT * FROM Team")
     abstract fun findAll() : List<Team>
 
+    @Query("SELECT * FROM Team WHERE competitionID = :compId")
+    abstract fun findByCompetition(compId:Int) : List<Team>
+
     @Insert
     abstract fun insert(team: Team)
 

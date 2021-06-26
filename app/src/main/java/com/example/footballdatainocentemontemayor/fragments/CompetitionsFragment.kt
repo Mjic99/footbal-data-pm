@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballdatainocentemontemayor.MainActivity
 import com.example.footballdatainocentemontemayor.R
@@ -39,12 +40,19 @@ class CompetitionsFragment: Fragment(), OnCompetitionItemClickListener, OnGetCom
     }
 
     override fun onClick(competition: Competition) {
-        TODO("Not yet implemented")
+        val bun = Bundle()
+        bun.putInt("competitionId", competition.id)
+        val teamFragment : TeamsFragment = TeamsFragment()
+        teamFragment.arguments = bun
+        val transaction :FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentFrame, teamFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun onSuccess(newCompetitions: ArrayList<Competition>) {
         requireActivity().runOnUiThread {
-            val competitionsAdapter = CompetitionsAdapter(newCompetitions, this, requireActivity())
+            val competitionsAdapter = CompetitionsAdapter(newCompetitions, this)
             competitionsView!!.adapter = competitionsAdapter
         }
     }
